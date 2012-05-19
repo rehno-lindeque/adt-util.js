@@ -7,24 +7,25 @@
 var adt = adt || {};
 (function() {
 "use strict";
-  // Compose two algebraic data types so that every evaluator/constructor takes
-  // the result of the next one as its input.
-  // E.g. Take (f . g) as the composition of two functions `f` and `g`.
-  // Then: (f . g)(x) = f(g(x))
-  adt.compose = function() {
-    throw "adt.compose is not yet implemented"
-    /* TODO: BUSY HERE
-    if (arguments.length === 0)
-      return adt();
-    var
-      a = arguments,
-      composition = typeof a[0] === 'function'? a[0] : adt(a[0]);
-    for (var i = 1; i < arguments.length; ++i) {
-      if (typeof a[i] === 'function')
-        composition = function(){ composition(a[i].apply(this, arguments)); };
+  adt.fromObject = function(obj){
+
+    throw "adt.fromObject is not yet implemented";
+
+    var 
+      key, 
+      result = [],
+      cons = adt({ Object: function(a) { adt.fromObject(a); } });
+    for (var key in obj)
+      adt.construct(key, cons(obj));
+  };
+
+  adt.fromObjectDeep = function(obj){
+
+    throw "adt.fromObjectDeep is not yet implemented";
+
+    for (var key in obj) {
+      //TODO: ... create adt from object (and also traverse into arrays)
     }
-    composition.eval = adt
-    return composition;*/
   };
   // Export util to a CommonJS module if exports is available
   if (typeof module !== "undefined" && module !== null)
